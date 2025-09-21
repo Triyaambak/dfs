@@ -1,0 +1,21 @@
+services:
+  namenode:
+    container_name: dfs_namenode
+    env_file:
+      - ./.env
+    ports:
+      - ${NAMENODE_PORT}:7000
+    volumes:
+      - namenode_data:/app/namenode
+  namenode_backup:
+    container_name: dfs_namenode_backup
+    env_file:
+      - ./.env
+    ports:
+      - ${NAMENODE_BACKUP_PORT}:7001
+    volumes:
+      - namenode_backup_data:/app/namenode_backup
+
+volumes:
+  namenode_data:
+  namenode_backup_data:
