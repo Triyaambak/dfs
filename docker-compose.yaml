@@ -1,21 +1,33 @@
 services:
   namenode:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      args:
+        API_PORT: ${NAMENODE_PORT}
     container_name: dfs_namenode
     env_file:
       - ./.env
     environment:
-      - ROLE:${NAMENODE_ROLE}
+      - ROLE=${NAMENODE_ROLE}
     ports:
       - ${NAMENODE_PORT}:7000
     volumes:
       - namenode_data:/app/namenode
 
   namenode_backup:
+    depends_on:
+      - namenode
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      args:
+        API_PORT: ${NAMENODE_BACKUP_PORT}
     container_name: dfs_namenode_backup
     env_file:
       - ./.env
     environment:
-      - ROLE:${NAMENODE_BACKUP_ROLE}
+      - ROLE=${NAMENODE_BACKUP_ROLE}
     ports:
       - ${NAMENODE_BACKUP_PORT}:7001
     volumes:

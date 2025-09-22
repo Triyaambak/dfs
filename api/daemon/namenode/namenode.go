@@ -1,10 +1,14 @@
 // Package namenode is to define and declare all functionalities of the namenode server
 package namenode
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 type Namenode struct{}
 
 func InitNamenode() {
-	fmt.Println("Initializing namenode")
+	port := os.Getenv("NAMENODE_PORT")
+	fmt.Printf("Initializing namenode on %s", port)
 }
