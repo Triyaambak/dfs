@@ -4,8 +4,10 @@ import (
 	"log"
 	"os"
 
+	datanode "github.com/Triyaambak/dfs/daemon/datanode"
 	namenode "github.com/Triyaambak/dfs/daemon/namenode"
 	namenode_backup "github.com/Triyaambak/dfs/daemon/namenode_backup"
+
 	"github.com/joho/godotenv"
 )
 
@@ -21,5 +23,7 @@ func main() {
 		namenode.InitNamenode()
 	case "namenode_backup":
 		namenode_backup.InitNamenodeBackup()
+	case "datanode":
+		datanode.InitDatanode()
 	}
 }

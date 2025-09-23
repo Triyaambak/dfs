@@ -33,6 +33,46 @@ services:
     volumes:
       - namenode_backup_data:/app/namenode_backup
 
+  datanode1:
+    depends_on:
+      - namenode_backup
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      args:
+        API_PORT: ${DATANODE_PORT1}
+    container_name: dfs_datanode1
+    env_file:
+      - ./.env
+    environment:
+      - ROLE=${DATANODE_ROLE}
+      - DATANODE_PORT=${DATANODE_PORT1}
+    ports:
+      - ${DATANODE_PORT1}:3000
+    volumes:
+      - ./datanode_data_1:/app/datanode
+
+  datanode2:
+    depends_on:
+      - namenode_backup
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      args:
+        API_PORT: ${DATANODE_PORT2}
+    container_name: dfs_datanode2
+    env_file:
+      - ./.env
+    environment:
+      - ROLE=${DATANODE_ROLE}
+      - DATANODE_PORT=${DATANODE_PORT2}
+    ports:
+      - ${DATANODE_PORT2}:3001
+    volumes:
+      - ./datanode_data_2:/app/datanode
+
 volumes:
   namenode_data:
   namenode_backup_data:
+  datanode_data_1:
+  datanode_data_2:
